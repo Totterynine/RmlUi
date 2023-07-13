@@ -322,6 +322,11 @@ macro(add_common_target_options NAME)
 		target_compile_options(${NAME} PRIVATE /MP /W4 /w44062 /permissive-)
 		target_compile_definitions(${NAME} PRIVATE _CRT_SECURE_NO_WARNINGS)
 
+		set(CMAKE_CXX_FLAGS_RELEASE "/MT")
+		set(CMAKE_CXX_FLAGS_DEBUG "/MTd")
+
+		add_compile_definitions($<$<CONFIG:Debug>:_ITERATOR_DEBUG_LEVEL=0>)
+
 		if(WARNINGS_AS_ERRORS)
 			target_compile_options(${NAME} PRIVATE /WX)
 		endif()
