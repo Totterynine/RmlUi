@@ -82,6 +82,7 @@ bool RMLUICORE_API Assert(const char* message, const char* file, int line);
 
 #else
 
+#ifndef RMLUI_ASSERT
 	#define RMLUI_ASSERT(x)                                                   \
 		if (!(x))                                                             \
 		{                                                                     \
@@ -90,6 +91,9 @@ bool RMLUICORE_API Assert(const char* message, const char* file, int line);
 				RMLUI_BREAK;                                                  \
 			}                                                                 \
 		}
+#endif
+
+#ifndef RMLUI_ASSERTMSG
 	#define RMLUI_ASSERTMSG(x, m)                        \
 		if (!(x))                                        \
 		{                                                \
@@ -98,17 +102,27 @@ bool RMLUICORE_API Assert(const char* message, const char* file, int line);
 				RMLUI_BREAK;                             \
 			}                                            \
 		}
+#endif
+
+#ifndef RMLUI_ERROR
 	#define RMLUI_ERROR                                          \
 		if (!(::Rml::Assert("RMLUI_ERROR", __FILE__, __LINE__))) \
 		{                                                        \
 			RMLUI_BREAK;                                         \
 		}
+#endif
+
+#ifndef RMLUI_ERRORMSG
 	#define RMLUI_ERRORMSG(m)                        \
 		if (!(::Rml::Assert(m, __FILE__, __LINE__))) \
 		{                                            \
 			RMLUI_BREAK;                             \
 		}
+#endif
+
+#ifndef RMLUI_VERIFY
 	#define RMLUI_VERIFY(x) RMLUI_ASSERT(x)
+#endif
 
 struct RmlUiAssertNonrecursive {
 	bool& entered;
